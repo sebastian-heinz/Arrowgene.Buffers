@@ -52,11 +52,13 @@ namespace Arrowgene.Buffers
         public abstract IBuffer Provide(byte[] buffer);
         public abstract byte[] GetAllBytes();
         public abstract byte[] GetAllBytes(int offset);
+        public abstract void WriteBool(bool value);
         public abstract void WriteByte(byte value);
         public abstract void WriteBytes(byte[] bytes);
         public abstract void WriteBytes(byte[] source, int srcOffset, int length);
         public abstract void WriteBytes(byte[] source, int srcOffset, int dstOffset, int count);
         public abstract void WriteDecimal(decimal value);
+        public abstract bool ReadBool();
         public abstract byte ReadByte();
         public abstract byte GetByte(int offset);
         public abstract byte[] ReadBytes(int length);
@@ -352,16 +354,6 @@ namespace Arrowgene.Buffers
             WriteByte(0);
         }
 
-        public virtual string ToHexString(string separator = null)
-        {
-            return Service.ToHexString(GetAllBytes(), separator);
-        }
-
-        public virtual string ToAsciiString(string separator = "  ")
-        {
-            return Service.ToAsciiString(GetAllBytes(), separator);
-        }
-
         public virtual string GetString(int offset, int length)
         {
             return GetString(offset, length, NoEncoding);
@@ -554,13 +546,6 @@ namespace Arrowgene.Buffers
         public virtual void WriteDouble(double value, Endianness endianness)
         {
             _endiannessSwapper.WriteSwap(value, WriteDouble, _endiannessSwapper.SwapBytes, endianness);
-        }
-
-        public string Dump()
-        {
-            return ToAsciiString() +
-                   Environment.NewLine +
-                   ToHexString();
         }
 
         public override string ToString()

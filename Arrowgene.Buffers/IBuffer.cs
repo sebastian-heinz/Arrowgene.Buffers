@@ -64,6 +64,11 @@ namespace Arrowgene.Buffers
         /// Returns all written bytes from a specific offset, without affecting the position.
         /// </summary>
         byte[] GetAllBytes(int offset);
+        
+        /// <summary>
+        /// Writes a 0x00 byte if false or 0x01 byte if true
+        /// </summary>
+        void WriteBool(bool value);
 
         void WriteByte(byte value);
 
@@ -111,6 +116,11 @@ namespace Arrowgene.Buffers
 
         void WriteBuffer(IBuffer value, int offset, int length);
 
+        /// <summary>
+        /// Reads 0x00 byte as false, everything else as true
+        /// </summary>
+        bool ReadBool();
+        
         /// <summary>
         /// Read byte.
         /// Advances the cursor.
@@ -356,12 +366,12 @@ namespace Arrowgene.Buffers
         string ReadFixedString(int length);
 
         /// <summary>
-        /// Reads a till a 0byte, but advances the position for the length.
+        /// Reads a string till a 0byte, but advances the position for the length.
         /// </summary>
         string ReadFixedString(int length, Encoding encoding);
 
         /// <summary>
-        /// Reads a till a 0byte, but advances the position for the length.
+        /// Reads a string till a 0byte, but advances the position for the length.
         /// </summary>
         string ReadFixedString(int length, Func<byte[], string> converter);
 
@@ -433,15 +443,5 @@ namespace Arrowgene.Buffers
         /// Advances the cursor.
         /// </summary>
         void WriteCString(string value, Func<string, byte[]> converter);
-
-        /// <summary>
-        /// Hex representation of the buffer.
-        /// </summary>
-        string ToHexString(string? separator = null);
-
-        /// <summary>
-        /// Ascii representation of the buffer.
-        /// </summary>
-        string ToAsciiString(string? separator = null);
     }
 }

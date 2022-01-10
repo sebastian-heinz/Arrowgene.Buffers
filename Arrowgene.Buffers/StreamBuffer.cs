@@ -85,6 +85,11 @@ namespace Arrowgene.Buffers
             return GetBytes(offset, Size - offset);
         }
 
+        public override void WriteBool(bool value)
+        {
+            _binaryWriter.Write(value);
+        }
+
         public override void WriteBytes(byte[] bytes)
         {
             _binaryWriter.Write(bytes);
@@ -149,6 +154,11 @@ namespace Arrowgene.Buffers
         public override void WriteDecimal(decimal value)
         {
             _binaryWriter.Write(value);
+        }
+
+        public override bool ReadBool()
+        {
+            return _binaryReader.ReadBoolean();
         }
 
         public override byte ReadByte()
