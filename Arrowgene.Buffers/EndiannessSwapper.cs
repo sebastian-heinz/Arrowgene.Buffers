@@ -36,28 +36,16 @@ namespace Arrowgene.Buffers
 
         public float SwapBytes(float input)
         {
-            byte[] tmpIn = BitConverter.GetBytes(input);
-            byte[] tmpOut = new byte[4];
-            tmpOut[0] = tmpIn[3];
-            tmpOut[1] = tmpIn[2];
-            tmpOut[2] = tmpIn[1];
-            tmpOut[3] = tmpIn[0];
-            return BitConverter.ToSingle(tmpOut, 0);
+            byte[] tmp = BitConverter.GetBytes(input);
+            Array.Reverse(tmp);
+            return BitConverter.ToSingle(tmp, 0);
         }
 
         public double SwapBytes(double input)
         {
-            byte[] tmpIn = BitConverter.GetBytes(input);
-            byte[] tmpOut = new byte[8];
-            tmpOut[0] = tmpIn[7];
-            tmpOut[1] = tmpIn[6];
-            tmpOut[2] = tmpIn[5];
-            tmpOut[3] = tmpIn[4];
-            tmpOut[4] = tmpIn[3];
-            tmpOut[5] = tmpIn[2];
-            tmpOut[6] = tmpIn[1];
-            tmpOut[7] = tmpIn[0];
-            return BitConverter.ToSingle(tmpOut, 0);
+            byte[] tmp = BitConverter.GetBytes(input);
+            Array.Reverse(tmp);
+            return BitConverter.ToDouble(tmp, 0);
         }
 
         public short SwapBytes(short value)
